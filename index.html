@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Random Reason</title>
+
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f5f5f5;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+}
+
+.container{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    width:600px;
+    text-align:center;
+    box-shadow:0 0 15px rgba(0,0,0,.1);
+}
+
+#reason{
+    font-size:22px;
+    margin:20px 0;
+}
+
+button{
+    padding:10px 20px;
+    font-size:16px;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>100 reasons to stay alive🫀</h1>
+
+    <div id="reason">
+        Click the button
+    </div>
+
+    <button onclick="showRandomReason()">
+        Pick Random Reason
+    </button>
+</div>
+
+<script>
+
+let reasons = [];
+
+fetch('reasons.txt')
+.then(response => response.text())
+.then(text => {
+
+    reasons = text
+    .split('\n')
+    .map(x => x.trim())
+    .filter(x => x.length > 0);
+
+});
+
+function showRandomReason(){
+
+    if(reasons.length === 0){
+        return;
+    }
+
+    const randomIndex =
+        Math.floor(Math.random() * reasons.length);
+
+    document.getElementById('reason').innerText =
+        reasons[randomIndex];
+}
+</script>
+
+</body>
+</html>
